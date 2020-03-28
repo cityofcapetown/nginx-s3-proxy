@@ -18,4 +18,4 @@ RUN apt-get -y install curl build-essential libpcre3 libpcre3-dev zlib1g-dev lib
 
 RUN mkdir -p /data/cache
 
-CMD [ "/usr/local/nginx/sbin/nginx", "-c", "/nginx.conf" ]
+CMD [ "/usr/local/nginx/sbin/nginx", "-c", "/home/nginx.conf" ]
