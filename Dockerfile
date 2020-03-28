@@ -17,5 +17,3 @@ RUN apt-get -y install curl build-essential libpcre3 libpcre3-dev zlib1g-dev lib
     apt-get autoremove -y
 
 RUN mkdir -p /data/cache
-
-CMD [ "/usr/local/nginx/sbin/nginx", "-c", "/home/nginx.conf" ]
