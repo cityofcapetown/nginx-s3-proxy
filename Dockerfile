@@ -17,3 +17,17 @@ RUN apt-get -y install curl build-essential libpcre3 libpcre3-dev zlib1g-dev lib
     apt-get autoremove -y
 
 RUN mkdir -p /data/cache
+
+COPY bin/inject-env-vars.sh /
+COPY bin/run.sh /
+
+RUN chmod +x /inject-env-vars.sh
+RUN chmod +x /run.sh
+
+ENV ACCESS_KEY
+ENV SECRET_KEY
+ENV BUCKET_NAME
+ENV PROXY_PASS_HOST https://172.29.100.54
+ENV PROXY_HEADER_HOST ds2.capetown.gov.za
+
+CMD ["/bin/bash", "/run.sh"]
