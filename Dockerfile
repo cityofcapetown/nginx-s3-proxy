@@ -29,4 +29,6 @@ ENV ROOT_HTML_PATH index.html
 ENV PROXY_PASS_HOST https://172.29.100.54
 ENV PROXY_HEADER_HOST ds2.capetown.gov.za
 
+EXPOSE 8000
+
 CMD ["/bin/bash", "/run.sh"]
