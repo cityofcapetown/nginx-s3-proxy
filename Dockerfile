@@ -25,9 +25,7 @@ COPY config/nginx.conf /
 RUN chmod +x /inject-env-vars.sh
 RUN chmod +x /run.sh
 
-ENV ACCESS_KEY ""
-ENV SECRET_KEY ""
-ENV BUCKET_NAME ""
+ENV ROOT_HTML_PATH index.html
 ENV PROXY_PASS_HOST https://172.29.100.54
 ENV PROXY_HEADER_HOST ds2.capetown.gov.za
 
