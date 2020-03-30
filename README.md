@@ -2,7 +2,7 @@
 ## Motivation
 
 This image was ~~created~~ modified for use with shinyproxy. This was for use as part of an auth solution for content 
-hosted in [Minio](http://minio.io/), which implements the AWS S3 API. 
+hosted in (http://minio.io/)[Minio], which implements the AWS S3 API. 
 
 ## Use
 ### Setting up Minio Creds
@@ -34,11 +34,8 @@ docker run -it --rm \
 ```
 
 Additionally, the following env variables can be overwritten:
-* `ROOT_HTML_PATH` - the HTML file to redirect to on the root path. Defaults to `index.html` (i.e. a key called 
-`index.html` in your bucket).
-* `PROXY_PASS_HOST` - the host (including protocol) to pass the request to. Defaults to `https://172.29.100.54`.
-* `PROXY_HEADER_HOST` - the hostname (*NB* not including protocol) to pass in the S3 request. Defaults to 
-`ds2.capetown.gov.za`.
+* `PROXY_PASS_HOST` - the host (including protocol) to pass the request to
+* `PROXY_HEADER_HOST` - the hostname (*NB* not including protocol) to pass in the S3 request
 
 #### Customisation
 The image uses [this config file](./config/nginx.conf) in the container at: `/nginx.conf`, however this can be 
