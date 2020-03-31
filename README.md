@@ -37,6 +37,43 @@ Additionally, the following env variables can be overwritten:
 * `PROXY_PASS_HOST` - the host (including protocol) to pass the request to
 * `PROXY_HEADER_HOST` - the hostname (*NB* not including protocol) to pass in the S3 request
 
+#### Basic Auth
+
+This image allows for automatic configuration of http basic_auth. To enable http basic_auth, pass an HTPASSWD environmental variable in the docker run command.
+
+The HTPASSWD variable must be of the format 'user:$1$xxxxxxxx$i7i9OZMOHPzwIC5/ehhFM/' where foo is the username and $1$xxxxxxxx$i7i9OZMOHPzwIC5/ehhFM/ is the hashed password of the user foo.
+
+> Cleartext passwords will not work.
+> Hint to create a hashed password - openssl passwd -1 -salt xxxxxxxx <PASSWORD>
+> Encapsulate your user:password string in single quotes!
+
+Here is a sample docker run command, which sets up basic auth with the user user and password donald_duck:
+
+```
+docker run -it --rm \
+           -p 8000:8000 \
+           --name minio-proxy-test \
+           --env ACCESS_KEY="<ACCESS NAME goes here>" \
+           --env SECRET_KEY="<SECRET NAME goes here>" \
+           --env BUCKET_NAME="<BUCKET NAME goes here>" \
+           --env HTPASSWD='user:$1$xxxxxxxx$i7i9OZMOHPzwIC5/ehhFM/' \
+           --env BACKDOOR="yes" \
+           s3nginx
+```
+
+##### Backdoor
+
+The maintainers of this Docker image have created an ENV flag to add a backdoor foo user to the http basic_auth. If you set the environmental variable BACKDOOR to yes then the backdoor will be enabled. The backdoor is disabled by default.
+
+If you want to fork this repo and remove the backdoor, remove this offending code block from run.sh:
+
+if [ $BACKDOOR == "yes" ]
+  then
+  echo "$(date -Iminutes) WARNING: Adding backdoor user!"
+  echo 'foo:$1$xxxxxxxx$X5WIzadvlkwenviwonbevpin.' >> /.htpasswd
+fi
+
+
 #### Customisation
 The image uses [this config file](./config/nginx.conf) in the container at: `/nginx.conf`, however this can be 
 overwridden `-v` option to mount one from your host.
