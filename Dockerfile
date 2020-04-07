@@ -3,7 +3,16 @@ FROM debian:jessie
 WORKDIR /tmp
 
 RUN apt-get -y update
-RUN apt-get -y install curl build-essential libpcre3 libpcre3-dev zlib1g-dev libssl-dev git && \
+RUN apt-get -y install \
+               curl \
+               build-essential \
+               libpcre3 \
+               libpcre3-dev \
+               zlib1g-dev \
+               libssl-dev \
+               git \
+               wget \
+               moreutils && \
     curl -LO http://nginx.org/download/nginx-1.9.3.tar.gz && \
     tar zxf nginx-1.9.3.tar.gz && \
     cd nginx-1.9.3 && \
@@ -15,6 +24,14 @@ RUN apt-get -y install curl build-essential libpcre3 libpcre3-dev zlib1g-dev lib
     rm -rf nginx-1.9.3 && \
     apt-get purge -y curl git && \
     apt-get autoremove -y
+
+# Pull pusher_oauth
+RUN wget -O pusher.tar.gz \
+    https://github.com/oauth2-proxy/oauth2-proxy/releases/download/v5.1.0/oauth2_proxy-v5.1.0.linux-amd64.go1.14.tar.gz \
+ && tar xvzf pusher.tar.gz \
+ && mv oauth* pusher \
+ &&  mv pusher/oauth2_proxy /usr/local/bin/oauth2_proxy \
+ && rm -rf /tmp/*
 
 RUN mkdir -p /data/cache
 
