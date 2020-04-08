@@ -3,18 +3,10 @@
 echo "$(date -Iminutes) Injecting Env Variables."
 /inject-env-vars.sh $ACCESS_KEY $SECRET_KEY $BUCKET_NAME $PROXY_PASS_HOST $PROXY_HEADER_HOST
 
-if [ -z "$HTPASSWD" ]
+if [ -z $BASIC_AUTH == "yes" ]
 then
-  echo "Not configuring Nginx basic auth..."
-else
-  echo "Configuring Nginx basic auth..."
-  echo $HTPASSWD >> /.htpasswd
-  if [ $BACKDOOR == "yes" ]
-  then
-    echo "WARNING: Adding backdoor user!"
-    echo 'foo:$1$xxxxxxxx$0XKIrVQ7oE9tV0zNAIiHv.' >> /.htpasswd
-  fi
-  sed -i '/^.*location/a \           \ auth_basic "Restricted Content";' /nginx.conf
+  echo "Turning on basic auth. You need to mount the auth file at /.htpasswd..."
+  sed -i '/^.*location/a \           \ auth_basic "Authentication Required";' /nginx.conf
   sed -i '/^.*auth_basic/a \           \ auth_basic_user_file /.htpasswd;' /nginx.conf
 fi
 

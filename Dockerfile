@@ -26,8 +26,7 @@ RUN chmod +x /inject-env-vars.sh
 RUN chmod +x /run.sh
 
 ENV CONTENT_DIR "/usr/share/nginx/html/"
-ENV HTPASSWD ""
-ENV BACKDOOR ""
+ENV BASIC_AUTH ""
 ENV ACCESS_KEY ""
 ENV SECRET_KEY ""
 ENV BUCKET_NAME ""
