@@ -3,7 +3,7 @@
 echo "$(date -Iminutes) Injecting Env Variables."
 /inject-env-vars.sh $ACCESS_KEY $SECRET_KEY $BUCKET_NAME $PROXY_PASS_HOST $PROXY_HEADER_HOST
 
-if [ -z $BASIC_AUTH == "yes" ]
+if [ $BASIC_AUTH == "yes" ]
 then
   echo "Turning on basic auth. You need to mount the auth file at /.htpasswd..."
   sed -i '/^.*location/a \           \ auth_basic "Authentication Required";' /nginx.conf
