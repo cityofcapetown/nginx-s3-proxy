@@ -5,9 +5,9 @@ echo "$(date -Iminutes) Injecting Env Variables."
 
 if [ $BASIC_AUTH == "yes" ]
 then
-  echo "Turning on basic auth. You need to mount the auth file at /.htpasswd..."
+  echo "Turning on basic auth. You need to mount the auth file at /auth/.htpasswd..."
   sed -i '/^.*location/a \           \ auth_basic "Authentication Required";' /nginx.conf
-  sed -i '/^.*auth_basic/a \           \ auth_basic_user_file /.htpasswd;' /nginx.conf
+  sed -i '/^.*auth_basic/a \           \ auth_basic_user_file /auth/.htpasswd;' /nginx.conf
 fi
 
 echo "$(date -Iminutes) Starting Nginx Proxy."
