@@ -21,6 +21,7 @@ RUN mkdir -p /data/cache
 COPY bin/inject-env-vars.sh /
 COPY bin/run.sh /
 COPY config/nginx.conf /
+RUN mkdir /auth && touch /auth/.htpasswd
 
 RUN chmod +x /inject-env-vars.sh
 RUN chmod +x /run.sh
